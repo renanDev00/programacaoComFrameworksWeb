@@ -21,6 +21,25 @@ class AlunoController {
     }
   }
 
+  async findUnique(request, response) {
+    try {
+      const idTexto = request.params.id;
+      const idNumero = Number(idTexto);
+
+      if (isNaN(idNumero)) {
+        return response
+          .status(400)
+          .json({ error: "O ID fornecido deve ser um número válido." });
+      }
+
+      const aluno = await alunoService.findUnique(idNumero);
+
+      return response.status(200).json({ aluno });
+    } catch (e) {
+      return response.status(e.statusCode || 500).json({ error: e.message });
+    }
+  }
+
   async create(request, response) {
     try {
       const aluno = await alunoService.create(request.body);

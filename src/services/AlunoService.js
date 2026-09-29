@@ -24,16 +24,27 @@ class AlunoService {
         "O parâmetro 'pageSize' deve ser um número inteiro maior que zero.",
       );
     }
-    //SELECT * FROM alunos
-    const alunos = await prisma.aluno.findMany({
-      skip: (numeroPage - 1) * numeroPageSize,
-      take: Number(numeroPageSize),
-      orderBy: {
-        [orderBy]: order,
-      },
-    });
-    const total = await prisma.aluno.count();
-    return { alunos, total };
+
+    try {
+      //SELECT * FROM alunos
+      const alunos = await prisma.aluno.findMany({
+        skip: (numeroPage - 1) * numeroPageSize,
+        take: Number(numeroPageSize),
+        orderBy: {
+          [orderBy]: order,
+        },
+      });
+      const total = await prisma.aluno.count();
+      return { alunos, total };
+    } catch (e) {
+      if (e.name === "PrismaClientValidationError") {
+        throw new AlunoInvalidoError(
+          `O campo de ordenação '${orderBy}' não existe na tabela de alunos.`,
+        );
+      }
+
+      throw e;
+    }
   }
 
   async findUnique(id) {

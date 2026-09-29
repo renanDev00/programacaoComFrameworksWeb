@@ -76,7 +76,7 @@ class AlunoService {
   }
 
   async update(id, dados) {
-    // Justificativa: Reaprovei o AlunoInvalidoError (400), pois enviar um corpo vazio
+    // Justificativa: Reaproveitei o AlunoInvalidoError (400), pois enviar um corpo vazio
     // é um erro de validação de dados, com o mesmo peso de enviar dados incorretos.
     if (!dados || Object.keys(dados).length === 0) {
       throw new AlunoInvalidoError(
@@ -84,7 +84,7 @@ class AlunoService {
       );
     }
 
-    // Justificativa: Reaprovei o findUnique, que já lança a exceção AlunoNaoEncontradoError (404)
+    // Justificativa: Reaproveitei o findUnique, que já lança a exceção AlunoNaoEncontradoError (404)
     // caso o aluno não exista. Isso evita duplicar a lógica de busca e erro.
     await this.findUnique(id);
 
@@ -99,7 +99,7 @@ class AlunoService {
       return alunoAtualizado;
     } catch (e) {
       // Justificativa: O código P2002 é retornado pelo Prisma quando há violação de restrição @unique.
-      // Reaprovei o AlunoInvalidoError para converter o erro do banco em uma mensagem legível para o usuário.
+      // Reaproveitei o AlunoInvalidoError para converter o erro do banco em uma mensagem legível para o usuário.
       if (e.code === "P2002") {
         throw new AlunoInvalidoError(
           "O email informado já pertence a outro aluno.",

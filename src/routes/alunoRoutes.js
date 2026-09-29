@@ -1,6 +1,7 @@
 const express = require("express");
 const alunoController = require("../controllers/AlunoController");
 const validarAluno = require("../middlewares/validarAluno");
+const validarAlunoUpdate = require("../middlewares/validarAlunoUpdate");
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.get(
 );
 router.get("/:id", alunoController.findUnique);
 router.post("/", validarAluno, alunoController.create);
-router.put("/:id", validarAluno, alunoController.update);
+router.put("/:id", validarAlunoUpdate, alunoController.update);
 router.delete("/:id", alunoController.delete);
 
 module.exports = router;

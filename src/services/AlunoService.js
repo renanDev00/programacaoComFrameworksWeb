@@ -13,15 +13,15 @@ class AlunoService {
     const numeroPage = Number(page);
     const numeroPageSize = Number(pageSize);
 
-    if (isNaN(numeroPage) || numeroPage < 1) {
+    if (!Number.isInteger(numeroPage) || numeroPage < 1) {
       throw new AlunoInvalidoError(
-        "O parâmetro 'page' deve ser um número maior que zero.",
+        "O parâmetro 'page' deve ser um número inteiro maior que zero.",
       );
     }
 
-    if (isNaN(numeroPageSize) || numeroPageSize < 1) {
+    if (!Number.isInteger(numeroPageSize) || numeroPageSize < 1) {
       throw new AlunoInvalidoError(
-        "O parâmetro 'pageSize' deve ser um número maior que zero.",
+        "O parâmetro 'pageSize' deve ser um número inteiro maior que zero.",
       );
     }
     //SELECT * FROM alunos

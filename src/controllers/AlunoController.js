@@ -26,7 +26,7 @@ class AlunoController {
       const idTexto = request.params.id;
       const idNumero = Number(idTexto);
 
-      if (isNaN(idNumero)) {
+      if (!Number.isInteger(idNumero)) {
         return response
           .status(400)
           .json({ error: "O ID fornecido deve ser um número válido." });
@@ -54,7 +54,7 @@ class AlunoController {
       const idTexto = request.params.id;
       const idNumero = Number(idTexto);
 
-      if (isNaN(idNumero)) {
+      if (!Number.isInteger(idNumero)) {
         return response
           .status(400)
           .json({ error: "O ID fornecido deve ser um número válido." });
@@ -73,7 +73,7 @@ class AlunoController {
       const idTexto = request.params.id;
       const idNumero = Number(idTexto);
 
-      if (isNaN(idNumero)) {
+      if (!Number.isInteger(idNumero)) {
         return response
           .status(400)
           .json({ error: "O ID fornecido deve ser um número válido." });

@@ -48,6 +48,25 @@ class AlunoController {
       return response.status(e.statusCode).json({ error: e.message });
     }
   }
+
+  async update(request, response) {
+    try {
+      const idTexto = request.params.id;
+      const idNumero = Number(idTexto);
+
+      if (isNaN(idNumero)) {
+        return response
+          .status(400)
+          .json({ error: "O ID fornecido deve ser um número válido." });
+      }
+
+      const aluno = await alunoService.update(idNumero, request.body);
+
+      return response.status(200).json({ aluno });
+    } catch (e) {
+      return response.status(e.statusCode || 500).json({ error: e.message });
+    }
+  }
 }
 
 module.exports = new AlunoController();
